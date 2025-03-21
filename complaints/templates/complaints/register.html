@@ -1,18 +1,20 @@
 <!-- complaints/templates/complaints/register.html -->
+{% extends 'complaints/base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html>
-<head>
-    <title>User Registration</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/register.css' %}">
-</head>
-<body>
-    <h1>Register</h1>
 
-    <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Register</button>
-    </form>
-</body>
-</html>
+{% block title %}User Registration - Mamas Kitchen{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'complaints/css/register.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="register-container">
+        <h1>Register</h1>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Register</button>
+        </form>
+    </div>
+{% endblock %}

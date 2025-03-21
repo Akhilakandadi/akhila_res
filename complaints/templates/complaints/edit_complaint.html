@@ -1,20 +1,20 @@
+{% extends 'complaints/base.html' %} 
+{% load static %} 
 
-{% load static %}
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Edit Complaint</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/edit_complaint.css' %}">
-</head>
-<body>
-    <h1>Edit Complaint: {{ complaint.title }}</h1>
+{% block extra_css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'complaints/css/edit_complaint.css' %}">
+{% endblock %}
 
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Update Complaint</button>
-    </form>
+{% block content %}
+    <div class="edit-container">
+        <h1>Edit Complaint: {{ complaint.title }}</h1>
 
-    <a href="{% url 'user_dashboard' %}">Back to Dashboard</a>
-</body>
-</html>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Update Complaint</button>
+        </form>
+
+        <a href="{% url 'user_dashboard' %}">Back to Dashboard</a>
+    </div>
+{% endblock %}

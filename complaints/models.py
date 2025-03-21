@@ -43,9 +43,6 @@ class Complaint(models.Model):
     status_updated_at = models.DateTimeField(auto_now=True)  # Automatically set when status is updated
     priority = models.CharField(max_length=2, choices=PRIORITY_CHOICES, default=MEDIUM)  # Complaint priority
     image = models.ImageField(upload_to='complaints/', blank=True, null=True)  # Optional image upload field
-    #ip_address = models.GenericIPAddressField(blank=True, null=True)  # IP address of the user submitting the complaint
-   # location = models.CharField(max_length=255, blank=True, null=True)  # Location of the complaint (optional)
-    #resolution = models.TextField(blank=True, null=True)  # Text for the resolution#
     resolved_at = models.DateTimeField(blank=True, null=True)  # Date and time when complaint was resolved
     is_urgent = models.BooleanField(default=False)  # Flag to mark complaints as urgent
     resolved_by = models.ForeignKey(User, on_delete=models.SET_NULL, blank=True, null=True, related_name='resolved_complaints')  # Admin who resolved the complaint
@@ -62,3 +59,5 @@ class StatusHistory(models.Model):
 
     def __str__(self):
         return f'{self.complaint.title} ({self.old_status} -> {self.new_status})'
+    
+

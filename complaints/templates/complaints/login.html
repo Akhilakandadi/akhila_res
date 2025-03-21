@@ -1,20 +1,24 @@
 <!-- complaints/templates/complaints/login.html -->
+{% extends 'complaints/base.html' %}  
+{% block content %}
+
 {% load static %}
 <!DOCTYPE html>
 <html>
 <head>
     <title>Login</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'complaints/css/login.css' %}">
 </head>
 <body>
-    <h1>Login</h1>
-
-    <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Login</button>
-    </form>
-
-    <p>Don't have an account? <a href="{% url 'register' %}">Register here</a></p>
+    <div class="login-container">
+        <h1>Login</h1>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Login</button>
+        </form>
+        <p>Don't have an account? <a href="{% url 'register' %}">Register here</a></p>
+    </div>
 </body>
 </html>
+{% endblock %}

@@ -1,14 +1,17 @@
+{% extends 'complaints/base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Success</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/success.css' %}">
-</head>
-<body>
-    <h1>Your complaint has been successfully submitted!</h1>
-    <p>Thank you for your feedback. We will look into your complaint shortly.</p>
-    <a href="/complaints/submit/">Submit Another Complaint</a>
-    <a href="{% url 'user_dashboard' %}">📄 View My Complaints</a>
-</body>
-</html>
+
+{% block title %}Success - Mama's Kitchen{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'complaints/css/success.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="success-container">
+        <h1>Your complaint has been successfully submitted!</h1>
+        <p>Thank you for your feedback. We will look into your complaint shortly.</p>
+        <a href="{% url 'submit_complaint' %}">Submit Another Complaint</a>
+        <a href="{% url 'user_dashboard' %}">📄 View My Complaints</a>
+    </div>
+{% endblock %}

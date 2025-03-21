@@ -1,12 +1,15 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Submit Complaint</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/submit_complaints.css' %}">
-</head>
-<body>
+<!-- complaints/templates/complaints/submit_complaints.html -->
+{% extends 'complaints/base.html' %}
 
+{% load static %}
+
+{% block title %}Submit Complaint{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'complaints/css/submit_complaints.css' %}">
+{% endblock %}
+
+{% block content %}
 <header class="top-nav">
     <a href="{% url 'user_dashboard' %}" class="nav-link">My Complaints</a>
     <form action="{% url 'logout' %}" method="post" class="logout-form">
@@ -16,7 +19,7 @@
 </header>
 
 <div class="form-container">
-    <h2>Submit a Complaint</h2>
+    <h2>Submit Complaint</h2>
     <p class="welcome">Welcome, {{ user.username }}!</p>
 
     <form method="post" enctype="multipart/form-data">
@@ -60,6 +63,4 @@
         <button type="submit">Submit Complaint</button>
     </form>
 </div>
-
-</body>
-</html>
+{% endblock %}

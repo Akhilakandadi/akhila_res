@@ -1,0 +1,88 @@
+/* static/complaints/css/success.css */
+.success-container {
+    background: #f9f9f9;
+    padding: 2rem 3rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    margin: 2rem auto; /* Ensures it's centered */
+    text-align: center;
+    border: 1px solid #28a745;
+    width: 100%;
+    box-sizing: border-box; /* Prevents unwanted overflow */
+}
+
+
+.success-container h1 {
+    color: #28a745;
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    font-family: 'Dancing Script', cursive;
+    text-shadow: 1px 1px 2px rgba(40, 167, 69, 0.2);
+}
+
+.success-container p {
+    color: #4a2c2a;
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    font-style: italic;
+}
+
+.success-container a {
+    display: inline-block;
+    margin: 0 1rem;
+    padding: 0.8rem 1.5rem;
+    color: #28a745;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1rem;
+    border: 2px solid #28a745;
+    border-radius: 5px;
+    background: #fff;
+    transition: all 0.3s ease;
+}
+
+.success-container a:hover {
+    background-color: #6f42c1;
+    color: #ffd700;
+    border-color: #6f42c1;
+    transform: scale(1.05);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .success-container {
+        padding: 1.5rem 2rem;
+        margin: 1.5rem auto;
+    }
+    
+    .success-container h1 {
+        font-size: 1.8rem;
+    }
+    
+    .success-container p {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .success-container {
+        padding: 1rem 1.5rem;
+        margin: 1rem auto;
+        max-width: 90%;
+    }
+    
+    .success-container h1 {
+        font-size: 1.5rem;
+    }
+    
+    .success-container p {
+        font-size: 0.9rem;
+    }
+    
+    .success-container a {
+        display: block;
+        margin: 0.5rem 0;
+        padding: 0.6rem 1rem;
+    }
+}

@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-=$s=2xq=%v4yjgfl#6r8^(yz^(!#(n=_=*6pbt2!rb-3lzwd8x
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['107.21.133.220']
+ALLOWED_HOSTS = ['127.0.0.1']
 
 
 # Application definition
@@ -118,12 +118,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # For collectstatic
 
 STATICFILES_DIRS = [
-    BASE_DIR / 'complaints/static',  # This tells Django where to look for static files
+    os.path.join(BASE_DIR, 'complaints', 'static'),  # Path to static files inside your app
 ]
+
 
 
 
