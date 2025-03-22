@@ -1,7 +1,7 @@
 """Tests for complaint app models."""
+import pytest
 from django.contrib.auth.models import User
 from complaints.models import Complaint
-import pytest
 @pytest.mark.django_db
 def test_create_complaint():
     """Test creating a Complaint object and verifying its attributes."""

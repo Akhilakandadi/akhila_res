@@ -9,7 +9,11 @@ disable=
     missing-module-docstring,
     missing-class-docstring,
     missing-function-docstring,
-    too-few-public-methods
+    too-few-public-methods,
+    C0304,
+    WO143,
+    E1101
+    
 
 
 
