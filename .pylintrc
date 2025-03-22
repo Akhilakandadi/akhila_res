@@ -1,0 +1,18 @@
+[MASTER]
+# Ignore migration files by directory and pattern
+ignore=migrations
+ignore-patterns=.*migrations/.*\.py
+
+# Optional: Other common settings for Django projects
+# Disable specific checks that might not apply to Django
+disable=
+    missing-module-docstring,
+    missing-class-docstring,
+    missing-function-docstring,
+    too-few-public-methods
+
+
+
+[REPORTS]
+# Reduce verbosity if desired
+reports=no
