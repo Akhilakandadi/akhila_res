@@ -1,64 +1,54 @@
-# complaints/views.py
-from django.shortcuts import render, redirect,  get_object_or_404
-from django.contrib.auth import login, authenticate
-from django.contrib.auth.forms import AuthenticationForm
+"""Views for the complaints app handling registration, complaints, and dashboard."""
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
-from .forms import UserRegistrationForm
-from .forms import ComplaintForm  # assuming your complaint form is already set up
 from django.contrib import messages
+from .forms import UserRegistrationForm, ComplaintForm
 from .models import Complaint
-
-
-# View to handle user registration
 def register(request):
+    """Handle user registration and auto-login."""
     if request.method == 'POST':
         form = UserRegistrationForm(request.POST)
         if form.is_valid():
             user = form.save()
             login(request, user)
             messages.success(request, 'Registration successful!')
-            return redirect('submit_complaint')  # Redirect to the complaint submission page
+            return redirect('submit_complaint')
+        # Keep the invalid form with errors for rendering below
     else:
-        form = UserRegistrationForm()
+        form = UserRegistrationForm()  # Initialize form for GET requests
+
     return render(request, 'complaints/register.html', {'form': form})
-
-
-
-# View to handle complaint form (only for logged-in users)
 @login_required
 def submit_complaint(request):
+    """Handle complaint submission for authenticated users."""
     if request.method == 'POST':
         form = ComplaintForm(request.POST, request.FILES)
         if form.is_valid():
             complaint = form.save(commit=False)
-            complaint.user = request.user  # Associate complaint with logged-in user
-            complaint.status = 'PE'  # Ensure status is always set to Pending
+            complaint.user = request.user
+            complaint.status = 'PE'
             complaint.save()
             print("Complaint saved successfully!")  # Debugging
-            return redirect('complaint_success')  # After submission, redirect to a success page
-        else:
-            print("Form errors:", form.errors)  # Debugging
-
+            return redirect('complaint_success')
+        print("Form errors:", form.errors)  # Debugging
+        # Keep the invalid form with errors for rendering below
     else:
-        form = ComplaintForm()
+        form = ComplaintForm()  # Initialize form for GET requests
 
     return render(request, 'complaints/submit_complaints.html', {'form': form})
-
-
-#User Dashboard (Read - View User's Own Complaints)
 @login_required
 def user_dashboard(request):
+    """Display the user's complaints in a dashboard."""
     complaints = Complaint.objects.filter(user=request.user).order_by('-submitted_at')
     return render(request, 'complaints/user_dashboard.html', {'complaints': complaints})
-
-# Edit Complaint (Update)
 @login_required
 def edit_complaint(request, complaint_id):
+    """Edit an existing complaint if still pending."""
     complaint = get_object_or_404(Complaint, id=complaint_id, user=request.user)
-
     if complaint.status != 'PE':
         messages.error(request, "You can't edit a complaint that is already being processed.")
-        return redirect('user_dashboard')  # Ensure this matches your URLs
+        return redirect('user_dashboard')
 
     if request.method == 'POST':
         form = ComplaintForm(request.POST, request.FILES, instance=complaint)
@@ -66,43 +56,24 @@ def edit_complaint(request, complaint_id):
             form.save()
             messages.success(request, 'Complaint updated successfully.')
             return redirect('user_dashboard')
-        else:
-            print("Form errors:", form.errors)  # DEBUGGING LINE
-            messages.error(request, "There was an issue updating the complaint.")
-
+        print("Form errors:", form.errors)  # Debugging
+        messages.error(request, "There was an issue updating the complaint.")
     else:
-        form = ComplaintForm(instance=complaint)
+        form = ComplaintForm(instance=complaint)  # Initialize form for GET requests
 
     return render(request, 'complaints/edit_complaint.html', {'form': form, 'complaint': complaint})
-
-
-# Delete Complaint (Delete)
 @login_required
 def delete_complaint(request, complaint_id):
+    """Delete a pending complaint."""
     complaint = get_object_or_404(Complaint, id=complaint_id, user=request.user)
-
-    if complaint.status != 'PE':  # Check if complaint is pending
+    if complaint.status != 'PE':
         messages.error(request, "You can't delete a complaint that is already being processed.")
-        return redirect('user_dashboard')  # ✅ Fixed Redirect
-
+        return redirect('user_dashboard')
     if request.method == 'POST':
         complaint.delete()
         messages.success(request, 'Complaint deleted successfully.')
-        return redirect('user_dashboard')  # ✅ Fixed Redirect
-
+        return redirect('user_dashboard')
     return render(request, 'complaints/confirm_delete.html', {'complaint': complaint})
-
-
-
-# Success page after submitting a complaint
 def complaint_success(request):
+    """Display success page after complaint submission."""
     return render(request, 'complaints/success.html')
-
-
-
-def get_restaurant_info():
-    return RestaurantInfo.objects.first()  # Fetch the first restaurant entry
-
-def homepage(request):
-    restaurant = get_restaurant_info()
-    return render(request, 'complaints/home.html', {'restaurant': restaurant})
