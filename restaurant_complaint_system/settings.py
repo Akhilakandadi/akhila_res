@@ -13,7 +13,7 @@ SECRET_KEY = 'django-insecure-=$s=2xq=%v4yjgfl#6r8^(yz^(!#(n=_=*6pbt2!rb-3lzwd8x
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['127.0.0.1', '*']
 
 # Application definition
 
@@ -104,7 +104,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # For collectstatic
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'complaints', 'static'),  # Path to static files inside your app
 ]
-
 # Path to the folder where media files will be stored
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
