@@ -2,7 +2,7 @@ asgiref==3.7.2
 astroid==2.15.8
 colorama==0.4.6
 dill==0.3.7
-Django==3.2.25
+Django>=4.0
 exceptiongroup==1.2.2
 importlib-metadata==6.7.0
 iniconfig==2.0.0
