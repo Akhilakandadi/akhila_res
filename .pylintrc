@@ -11,7 +11,6 @@ disable=
     missing-function-docstring,
     too-few-public-methods,
     C0304,
-    WO143,
     E1101
     
 
