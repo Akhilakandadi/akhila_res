@@ -1,0 +1,107 @@
+/* static/complaints/css/edit_complaint.css */
+.edit-container {
+    background: white;
+    padding: 2rem 3rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px; /* Matches submit complaint width */
+    margin: 2rem auto; /* Center below header, consistent with success/register */
+    text-align: center;
+}
+
+h1 {
+    color: #6f42c1; /* Purple theme */
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+}
+
+form p {
+    margin: 1rem 0;
+}
+
+form label {
+    display: block;
+    color: #444;
+    margin-bottom: 0.4rem;
+    font-weight: bold;
+}
+
+form input,
+form select,
+form textarea {
+    width: 100%;
+    padding: 0.6rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 0.9rem;
+    transition: border-color 0.3s ease;
+}
+
+form textarea {
+    height: 100px;
+    resize: vertical;
+}
+
+form input:focus,
+form select:focus,
+form textarea:focus {
+    outline: none;
+    border-color: #6f42c1; /* Purple on focus */
+    box-shadow: 0 0 5px rgba(111, 66, 193, 0.3);
+}
+
+form input[type="file"] {
+    padding: 0.3rem;
+}
+
+button[type="submit"] {
+    width: 100%;
+    padding: 0.8rem;
+    background-color: #6f42c1 !important; /* Purple theme */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    margin-top: 1rem;
+}
+
+button[type="submit"]:hover {
+    background-color: #563d7c !important; /* Darker purple on hover */
+    transform: scale(1.02);
+}
+
+a {
+    display: block;
+    margin-top: 1.5rem;
+    color: #007bff; /* Blue for consistency */
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .edit-container {
+        padding: 1.5rem;
+        margin: 1.5rem auto; /* Adjusted for consistency */
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.5rem;
+    }
+    
+    form label {
+        font-size: 0.9rem;
+    }
+}

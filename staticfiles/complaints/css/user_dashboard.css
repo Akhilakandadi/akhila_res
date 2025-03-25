@@ -1,0 +1,154 @@
+/* static/css/complaints/user_dashboard.css */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    min-height: 100vh;
+}
+
+.dashboard-container {
+    background: white;
+    padding: 2rem 3rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 800px; /* Wider for table */
+    margin: 2rem auto; /* Center horizontally */
+}
+
+h2 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+}
+
+.actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.actions a {
+    color: #007bff; /* Blue for submit complaint */
+    text-decoration: none;
+    font-weight: bold;
+    padding: 0.6rem 1.2rem;
+    border: 2px solid #007bff;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.actions a:hover {
+    background-color: #007bff;
+    color: white;
+    transform: scale(1.05);
+}
+
+.logout-form {
+    margin: 0;
+}
+
+.logout-form button {
+    background-color: #dc3545; /* Red for logout */
+    color: white;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.logout-form button:hover {
+    background-color: #c82333;
+    transform: scale(1.05);
+}
+
+h3 {
+    color: #333;
+    margin-bottom: 1rem;
+    font-size: 1.4rem;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1.5rem;
+}
+
+th, td {
+    padding: 0.8rem;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+th {
+    background-color: #f8f9fa;
+    color: #333;
+    font-weight: bold;
+}
+
+td {
+    color: #666;
+}
+
+td a {
+    color: #6f42c1; /* Purple for edit/delete, matching edit page */
+    text-decoration: none;
+    margin-right: 1rem;
+    transition: color 0.3s ease;
+}
+
+td a:hover {
+    color: #563d7c;
+    text-decoration: underline;
+}
+
+p {
+    color: #666;
+    text-align: center;
+    font-size: 1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .dashboard-container {
+        margin: 1rem;
+        padding: 1.5rem;
+    }
+    
+    .actions {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    table {
+        font-size: 0.9rem;
+    }
+    
+    th, td {
+        padding: 0.6rem;
+    }
+}
+
+@media (max-width: 480px) {
+    h2 {
+        font-size: 1.5rem;
+    }
+    
+    h3 {
+        font-size: 1.2rem;
+    }
+    
+    th, td {
+        display: block;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    
+    th {
+        background-color: #e9ecef;
+    }
+}

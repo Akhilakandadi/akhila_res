@@ -1,0 +1,87 @@
+/* static/complaints/css/login.css */
+.login-container {
+    background: white;
+    padding: 2rem 3rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    margin: 2rem auto; /* Center with top margin */
+}
+
+.login-container h1 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+}
+
+.login-container form p {
+    margin: 1rem 0;
+}
+
+.login-container form label {
+    display: block;
+    color: #666;
+    margin-bottom: 0.3rem;
+}
+
+.login-container form input {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.login-container form input:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
+
+.login-container button {
+    width: 100%;
+    padding: 0.8rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 1rem;
+}
+
+.login-container button:hover {
+    background-color: #0056b3;
+}
+
+.login-container p {
+    text-align: center;
+    color: #666;
+    margin-top: 1.5rem;
+}
+
+.login-container a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.login-container a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+    .login-container {
+        margin: 1rem auto;
+        padding: 1.5rem;
+    }
+    
+    .login-container h1 {
+        font-size: 1.5rem;
+    }
+}

@@ -1,0 +1,221 @@
+/* static/complaints/css/submit_complaints.css */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: red !important;
+    
+}
+
+/* Top Navigation */
+.top-nav {
+    background: #4a2c2a; /* Rich maroon */
+    padding: 0.6rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.nav-link {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1rem;
+    padding: 0.4rem 1.2rem;
+    border-radius: 3px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.nav-link:hover {
+    background-color: #6f42c1;
+    color: #fff;
+}
+
+.logout-form {
+    margin: 0;
+}
+
+.logout-form button {
+    background-color: #8B0000;
+    color: white;
+    border: none;
+    padding: 0.4rem 1.2rem;
+    border-radius: 3px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.logout-form button:hover {
+    background-color: #A52A2A;
+    transform: scale(1.05);
+}
+
+/* Form Container */
+.form-container {
+    background: #f9f9f9;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 2rem auto;
+    border: 1px solid #ddd;
+}
+
+.form-container h2 {
+    color: #4a2c2a;
+    text-align: center;
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    font-family: 'Dancing Script', cursive;
+}
+
+.welcome {
+    text-align: center;
+    color: #6f42c1;
+    font-size: 1rem;
+    margin-bottom: 2rem;
+    font-style: italic;
+}
+
+/* Form Rows */
+.form-row {
+    margin-bottom: 1.5rem;
+}
+
+.form-row label {
+    display: block;
+    color: #4a2c2a;
+    font-weight: bold;
+    font-size: 0.9rem;
+    margin-bottom: 0.4rem;
+}
+
+.form-row input,
+.form-row select,
+.form-row textarea {
+    width: 100%;
+    padding: 0.7rem;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    box-sizing: border-box;
+    background: #fff;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Better focus styles for accessibility */
+.form-row input:focus,
+.form-row select:focus,
+.form-row textarea:focus {
+    border-color: #00b894;
+    box-shadow: 0 0 6px rgba(0, 184, 148, 0.6);
+    outline: none;
+}
+
+/* Improved file input styling */
+.form-row input[type="file"] {
+    padding: 0.4rem;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    background: #fff;
+}
+
+/* Checkbox Styling */
+.checkbox-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.checkbox-row label {
+    font-weight: normal;
+    margin: 0;
+    color: #6f42c1;
+}
+
+/* Submit Button */
+button[type="submit"] {
+    width: 100%;
+    padding: 0.9rem;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+/* Smoother button hover effect */
+button[type="submit"]:hover {
+    background-color: #228337;
+    transform: scale(1.02);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .top-nav {
+        flex-direction: column;
+        align-items: center; /* Center items */
+        text-align: center;
+    }
+    
+    .form-container {
+        margin: 1rem auto;
+        padding: 1.5rem;
+    }
+    
+    .form-container h2 {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .top-nav {
+        padding: 0.4rem 0.8rem;
+    }
+    
+    .nav-link {
+        font-size: 0.9rem;
+        padding: 0.3rem 1rem;
+    }
+    
+    .logout-form button {
+        font-size: 0.9rem;
+        padding: 0.3rem 1rem;
+    }
+    
+    .form-container {
+        padding: 1rem;
+    }
+    
+    .form-container h2 {
+        font-size: 1.4rem;
+    }
+    
+    .welcome {
+        font-size: 0.9rem;
+    }
+    
+    .form-row label {
+        font-size: 0.85rem;
+    }
+    
+    .form-row input,
+    .form-row select,
+    .form-row textarea {
+        padding: 0.6rem;
+        font-size: 0.9rem;
+    }
+    
+    .form-row textarea {
+        height: 100px;
+    }
+    
+    button[type="submit"] {
+        padding: 0.8rem;
+        font-size: 1rem;
+    }
+}

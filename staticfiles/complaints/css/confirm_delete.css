@@ -1,0 +1,90 @@
+/* static/css/complaints/confirm_delete.css */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;  /* Stack elements vertically */
+    align-items: center;     /* Center horizontally */
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+.confirm-container {
+    background: white;
+    padding: 2rem 3rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+    text-align: center; /* Center all content */
+}
+
+h1 {
+    color: #dc3545; /* Red for warning */
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+}
+
+p {
+    color: #666;
+    font-size: 1rem;
+    margin-bottom: 2rem;
+}
+
+form {
+    display: inline-block; /* Keep button inline with cancel link */
+}
+
+button[type="submit"] {
+    background-color: #dc3545 !important; /* Red theme */
+    color: white;
+    border: none;
+    padding: 0.8rem 2rem;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+button[type="submit"]:hover {
+    background-color: #c82333 !important; /* Darker red on hover */
+    transform: scale(1.05);
+}
+
+a {
+    display: inline-block;
+    margin-left: 1.5rem;
+    color: #007bff; /* Blue for cancel to contrast with delete */
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+    .confirm-container {
+        margin: 1rem;
+        padding: 1.5rem;
+    }
+    
+    h1 {
+        font-size: 1.5rem;
+    }
+    
+    button[type="submit"] {
+        padding: 0.6rem 1.5rem;
+    }
+    
+    a {
+        margin-left: 1rem;
+    }
+}
