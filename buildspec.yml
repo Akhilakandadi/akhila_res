@@ -1,15 +1,20 @@
-phases: 
- install: 
-  runtime-versions: 
-   python: 3.11 
-  commands:
-    - pip install --upgrade pip 
-    - pip install -r requirements.txt pylint 
- pre_build: 
-  commands: 
-   - python --version
-   - pylint  $CODEBUILD_SRC_DIR/*.py 
-   - pylint  $CODEBUILD_SRC_DIR/restaurant_complaint_system/*.py 
-artifacts: 
- files:
-   - '**/*' 
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.11
+    commands:
+      - pip install --upgrade pip
+      - pip install -r requirements.txt pylint
+
+  pre_build:
+    commands:
+      - python --version
+      - pylint $CODEBUILD_SRC_DIR/*.py
+      - pylint $CODEBUILD_SRC_DIR/restaurant_complaint_system/*.py
+      - pylint $CODEBUILD_SRC_DIR/complaints/*.py
+
+artifacts:
+  files:
+    - '**/*'
