@@ -21,10 +21,14 @@ phases:
       - wget https://github.com/dependency-check/DependencyCheck/releases/download/v12.1.0/dependency-check-12.1.0-release.zip
       - unzip dependency-check-12.1.0-release.zip
       - mv dependency-check /opt/dependency-check
-      - chmod +x ~/opt/dependency-check/bin/dependency-check
+      - echo "Listing contents of /opt/dependency-check..."
+      - ls -la /opt/dependency-check  # Verify the move
+      - echo "Listing contents of /opt/dependency-check/bin..."
+      - ls -la /opt/dependency-check/bin  # Check if bin exists and contains the executable
+      - chmod +x /opt/dependency-check/bin/dependency-check.sh  # Ensure executable permissions
       - export PATH=$PATH:/opt/dependency-check/bin
       - echo $PATH
-      - dependency-check --version
+      - /opt/dependency-check/bin/dependency-check.sh --version  # Test explicitly with full path
 
   pre_build:
     commands:
