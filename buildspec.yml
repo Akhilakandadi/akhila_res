@@ -21,6 +21,7 @@ phases:
       - wget https://github.com/dependency-check/DependencyCheck/releases/download/v12.1.0/dependency-check-12.1.0-release.zip
       - unzip dependency-check-12.1.0-release.zip
       - mv dependency-check /opt/dependency-check
+      - chmod +x /opt/dependency-check/bin/dependency-check
       - export PATH=$PATH:/opt/dependency-check/bin
       - echo $PATH
       - dependency-check --version
