@@ -15,20 +15,14 @@ phases:
       - echo "Downloading SonarScanner 5.0.1..."
       - wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-5.0.1.3006-linux.zip
       - unzip sonar-scanner-cli-5.0.1.3006-linux.zip
-      - export PATH=$PATH:$PWD/sonar-scanner-5.0.1.3006-linux/bin
+      - mv sonar-scanner-5.0.1.3006-linux /opt/sonar-scanner  # Move to a fixed location
+      - /opt/sonar-scanner/bin/sonar-scanner --version  # Verify it works
 
       - echo "Downloading OWASP Dependency-Check..."
-      - wget https://github.com/dependency-check/DependencyCheck/releases/download/v12.1.0/dependency-check-12.1.0-release.zip
+      - wget https://github.com/jeremylong/DependencyCheck/releases/download/v12.1.0/dependency-check-12.1.0-release.zip
       - unzip dependency-check-12.1.0-release.zip
       - mv dependency-check /opt/dependency-check
-      - echo "Listing contents of /opt/dependency-check..."
-      - ls -la /opt/dependency-check  # Verify the move
-      - echo "Listing contents of /opt/dependency-check/bin..."
-      - ls -la /opt/dependency-check/bin  # Check if bin exists and contains the executable
-      - chmod +x /opt/dependency-check/bin/dependency-check.sh  # Ensure executable permissions
-      - export PATH=$PATH:/opt/dependency-check/bin
-      - echo $PATH
-      - /opt/dependency-check/bin/dependency-check.sh --version  # Test explicitly with full path
+      - /opt/dependency-check/bin/dependency-check.sh --version  # Verify it works
 
   pre_build:
     commands:
@@ -43,15 +37,15 @@ phases:
   build:
     commands:
       - echo "Running SonarCloud scan..."
-      - sonar-scanner -X -Dsonar.login=$SONAR_TOKEN
+      - /opt/sonar-scanner/bin/sonar-scanner -X -Dsonar.login=$SONAR_TOKEN
 
       - echo "Running OWASP Dependency-Check..."
-      - dependency-check.sh --project "Django Project" --scan . --out ./dependency-check-report
+      - /opt/dependency-check/bin/dependency-check.sh --project "Django Project" --scan . --out ./dependency-check-report
 
   post_build:
     commands:
       - echo "Build, SonarCloud scan, and Dependency-Check completed"
-      
+
 artifacts:
   files:
     - pylint-report.txt
