@@ -26,7 +26,6 @@ phases:
   build:
     commands:
       - echo "Running SonarCloud scan..."
-      - export SONAR_TOKEN=$(aws secretsmanager get-secret-value --secret-id akhila_sonar_token --query SecretString --output text | jq -r '.SONAR_TOKEN')
       - sonar-scanner -Dsonar.login=$SONAR_TOKEN
 
   post_build:
