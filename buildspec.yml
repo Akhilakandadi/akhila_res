@@ -13,7 +13,7 @@ phases:
       - python --version
       - pylint $CODEBUILD_SRC_DIR/*.py
       - pylint $CODEBUILD_SRC_DIR/restaurant_complaint_system/*.py
-      - pylint $CODEBUILD_SRC_DIR/complaints/*.py
+      - pylint $CODEBUILD_SRC_DIR/complaints/*.py 
 
 artifacts:
   files:
