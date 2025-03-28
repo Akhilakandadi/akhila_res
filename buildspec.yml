@@ -39,7 +39,7 @@ phases:
       - sonar-scanner -X -Dsonar.login=$SONAR_TOKEN
 
       - echo "Running OWASP Dependency-Check..."
-      - dependency-check --project "Django Project" --scan ./ --out ./dependency-check-report
+      - dependency-check --project "Django Project" --scan . --out ./dependency-check-report
 
   post_build:
     commands:
