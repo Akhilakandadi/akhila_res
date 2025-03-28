@@ -4,17 +4,21 @@ phases:
   install:
     runtime-versions:
       python: 3.11
+      java: 11  # Explicitly add Java 11 for SonarScanner 5.0.1 and Dependency-Check
     commands:
       - echo "Installing dependencies..."
       - pip install --upgrade pip
-      - pip install -r requirements.txt || true
+      - pip install -r $CODEBUILD_SRC_DIR/requirements.txt  # Explicit root path
+
       - echo "Verifying Java version..."
-      - java -version
-      - echo "Downloading SonarScanner 5.1.0..."
-      - wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-5.1.0.28487-linux.zip
-      - unzip sonar-scanner-cli-5.1.0.28487-linux.zip
-      - mv sonar-scanner-5.1.0.28487-linux /opt/sonar-scanner
+      - java -version  # Ensures Java 11 is available
+
+      - echo "Downloading SonarScanner 5.0.1..."
+      - wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-5.0.1.3006-linux.zip
+      - unzip sonar-scanner-cli-5.0.1.3006-linux.zip
+      - mv sonar-scanner-5.0.1.3006-linux /opt/sonar-scanner
       - /opt/sonar-scanner/bin/sonar-scanner --version
+
       - echo "Downloading OWASP Dependency-Check..."
       - wget https://github.com/jeremylong/DependencyCheck/releases/download/v12.1.0/dependency-check-12.1.0-release.zip
       - unzip dependency-check-12.1.0-release.zip
@@ -26,25 +30,19 @@ phases:
       - echo "Verifying Python version..."
       - python --version
       - echo "Running pylint..."
-      - pylint $CODEBUILD_SRC_DIR/*.py > pylint-report-root.txt || true
-      - pylint $CODEBUILD_SRC_DIR/restaurant_complaint_system/*.py > pylint-report-restaurant.txt || true
-      - pylint $CODEBUILD_SRC_DIR/complaints/*.py > pylint-report-complaints.txt || true
+      - pylint $CODEBUILD_SRC_DIR/*.py > pylint-report-root.txt || echo "Pylint failed on root"
+      - pylint $CODEBUILD_SRC_DIR/restaurant_complaint_system/*.py > pylint-report-restaurant.txt || echo "Pylint failed on restaurant"
+      - pylint $CODEBUILD_SRC_DIR/complaints/*.py > pylint-report-complaints.txt || echo "Pylint failed on complaints"
       - cat pylint-report-root.txt pylint-report-restaurant.txt pylint-report-complaints.txt > pylint-report.txt
 
   build:
     commands:
       - echo "Running SonarCloud scan..."
       - /opt/sonar-scanner/bin/sonar-scanner -X -Dsonar.login=$SONAR_TOKEN
+
       - echo "Running OWASP Dependency-Check..."
-      - |
-        if [ -f requirements.txt ]; then
-          echo "requirements.txt exists, running Dependency-Check..."
-          cat requirements.txt
-          mkdir -p nvd-cache
-          /opt/dependency-check/bin/dependency-check.sh --project "Django Project" --scan requirements.txt --out ./dependency-check-report --log dependency-check.log
-        else
-          echo "requirements.txt not found, skipping Dependency-Check..."
-        fi
+      - mkdir -p $CODEBUILD_SRC_DIR/nvd-cache  # Create cache directory if it doesn’t exist
+      - /opt/dependency-check/bin/dependency-check.sh --project "Django Project" --scan "$CODEBUILD_SRC_DIR/requirements.txt" --out ./dependency-check-report --data "$CODEBUILD_SRC_DIR/nvd-cache" --log dependency-check.log
 
   post_build:
     commands:
@@ -58,4 +56,4 @@ artifacts:
 
 cache:
   paths:
-    - nvd-cache/**/*
+    - '$CODEBUILD_SRC_DIR/nvd-cache/**/*'  # Cache the NVD data directory
