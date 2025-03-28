@@ -8,10 +8,14 @@ phases:
       - echo "Installing dependencies..."
       - pip install --upgrade pip
       - pip install -r requirements.txt
-      - echo "Downloading SonarScanner 4.6..."
-      - wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-3.3.0.1492-linux.zip
-      - unzip ./sonar-scanner-cli-3.3.0.1492-linux.zip
-      - export PATH=$PATH:/sonar-scanner-3.3.0.1492-linux/bin/
+
+      - echo "Verifying Java version..."
+      - java -version  # Ensures Java 11 is available
+
+      - echo "Downloading SonarScanner 5.0.1..."
+      - wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-5.0.1.3006-linux.zip
+      - unzip sonar-scanner-cli-5.0.1.3006-linux.zip
+      - export PATH=$PATH:$PWD/sonar-scanner-5.0.1.3006-linux/bin
 
   pre_build:
     commands:
