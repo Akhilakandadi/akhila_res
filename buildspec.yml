@@ -4,7 +4,6 @@ phases:
   install:
     runtime-versions:
       python: 3.11
-      java: 11  # Explicitly add Java 11 for SonarScanner 5.0.1 and Dependency-Check
     commands:
       - echo "Installing dependencies..."
       - pip install --upgrade pip
