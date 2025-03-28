@@ -22,10 +22,10 @@ phases:
       - echo "Verifying Python version..."
       - python --version
       - echo "Running pylint..."
-      - pylint $CODEBUILD_SRC_DIR/*.py > pylint-report-root.txt || true
-      - pylint $CODEBUILD_SRC_DIR/restaurant_complaint_system/*.py > pylint-report-restaurant.txt || true
-      - pylint $CODEBUILD_SRC_DIR/complaints/*.py > pylint-report-complaints.txt || true
-      - cat pylint-report-root.txt pylint-report-restaurant.txt pylint-report-complaints.txt > pylint-report.txt
+      - pylint $CODEBUILD_SRC_DIR/*.py || true
+      - pylint $CODEBUILD_SRC_DIR/restaurant_complaint_system/*.py || true
+      - pylint $CODEBUILD_SRC_DIR/complaints/*.py || true
+      
 
   build:
     commands:
@@ -41,8 +41,3 @@ artifacts:
     - '**/*.py'
     - pylint-report.txt
 
-reports:
-  pylint-reports:
-    files:
-      - pylint-report.txt
-    base-directory: './'
