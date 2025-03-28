@@ -17,6 +17,12 @@ phases:
       - unzip sonar-scanner-cli-5.0.1.3006-linux.zip
       - export PATH=$PATH:$PWD/sonar-scanner-5.0.1.3006-linux/bin
 
+      - echo "Downloading OWASP Dependency-Check..."
+      - wget https://github.com/jeremydmiller/dependency-check/releases/download/v7.0.0/dependency-check-7.0.0-release.zip
+      - unzip dependency-check-7.0.0-release.zip
+      - mv dependency-check-7.0.0 /opt/dependency-check
+      - export PATH=$PATH:/opt/dependency-check/bin
+
   pre_build:
     commands:
       - echo "Verifying Python version..."
@@ -32,10 +38,14 @@ phases:
       - echo "Running SonarCloud scan..."
       - sonar-scanner -X -Dsonar.login=$SONAR_TOKEN
 
+      - echo "Running OWASP Dependency-Check..."
+      - dependency-check --project "Django Project" --scan ./ --out ./dependency-check-report
+
   post_build:
     commands:
-      - echo "Build and scan completed"
-
+      - echo "Build, SonarCloud scan, and Dependency-Check completed"
+      
 artifacts:
   files:
     - pylint-report.txt
+    - dependency-check-report/*
