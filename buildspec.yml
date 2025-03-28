@@ -4,15 +4,14 @@ phases:
   install:
     runtime-versions:
       python: 3.11
-      
     commands:
       - echo "Installing dependencies..."
       - pip install --upgrade pip
       - pip install -r requirements.txt
-      - echo "Downloading SonarScanner..."
-      - wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.7.0.2747-linux.zip
-      - unzip sonar-scanner-cli-4.7.0.2747-linux.zip
-      - export PATH=$PATH:$PWD/sonar-scanner-4.7.0.2747-linux/bin
+      - echo "Downloading SonarScanner 4.6..."
+      - wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.2.2472-linux.zip
+      - unzip sonar-scanner-cli-4.6.2.2472-linux.zip
+      - export PATH=$PATH:$PWD/sonar-scanner-4.6.2.2472-linux/bin
 
   pre_build:
     commands:
@@ -22,11 +21,12 @@ phases:
       - pylint $CODEBUILD_SRC_DIR/*.py > pylint-report-root.txt || true
       - pylint $CODEBUILD_SRC_DIR/restaurant_complaint_system/*.py > pylint-report-restaurant.txt || true
       - pylint $CODEBUILD_SRC_DIR/complaints/*.py > pylint-report-complaints.txt || true
+      - cat pylint-report-root.txt pylint-report-restaurant.txt pylint-report-complaints.txt > pylint-report.txt
 
   build:
     commands:
       - echo "Running SonarCloud scan..."
-      - export SONAR_TOKEN=$(aws secretsmanager get-secret-value --secret-id akhila_sonar_token --query SecretString --output text | jq -r '.SONAR_TOKEN') 
+      - export SONAR_TOKEN=$(aws secretsmanager get-secret-value --secret-id akhila_sonar_token --query SecretString --output text | jq -r '.SONAR_TOKEN')
       - sonar-scanner -Dsonar.login=$SONAR_TOKEN
 
   post_build:
@@ -35,7 +35,5 @@ phases:
 
 artifacts:
   files:
-    - '**/*'
-    - pylint-report-root.txt
-    - pylint-report-restaurant.txt
-    - pylint-report-complaints.txt
+    - '**/*.py'
+    - pylint-report.txt
