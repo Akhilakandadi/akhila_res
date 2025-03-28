@@ -40,3 +40,9 @@ artifacts:
   files:
     - '**/*.py'
     - pylint-report.txt
+
+reports:
+  pylint-reports:
+    files:
+      - pylint-report.txt
+    base-directory: './'
