@@ -41,6 +41,9 @@ phases:
       - echo "Contents of requirements.txt:"
       - cat "$CODEBUILD_SRC_DIR/requirements.txt"  
       - echo "Running OWASP Dependency-Check..."
+      - echo "Running OWASP Dependency-Check..."
+      - dependency-check.sh --project "Django Project" --scan "$CODEBUILD_SRC_DIR/" --out ./dependency-check-report --data "$CODEBUILD_SRC_DIR/nvd-cache" --log dependency-check.log
+
       
     commands:
       - echo "Build, SonarCloud scan, and Dependency-Check completed"
@@ -49,7 +52,6 @@ artifacts:
   files:
     - pylint-report.txt
     - dependency-check-report/*
-    - dependency-check.log
 
 cache:
   paths:
