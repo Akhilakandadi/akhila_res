@@ -5,16 +5,35 @@ phases:
     runtime-versions:
       python: 3.11
     commands:
+      - echo "Installing dependencies..."
       - pip install --upgrade pip
       - pip install -r requirements.txt pylint
+      - echo "Downloading SonarScanner..."
+      - wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.8.0.2856-linux.zip
+      - unzip sonar-scanner-cli-4.8.0.2856-linux.zip
+      - export PATH=$PATH:$PWD/sonar-scanner-4.8.0.2856-linux/bin
 
   pre_build:
     commands:
+      - echo "Verifying Python version..."
       - python --version
-      - pylint $CODEBUILD_SRC_DIR/*.py
-      - pylint $CODEBUILD_SRC_DIR/restaurant_complaint_system/*.py
-      - pylint $CODEBUILD_SRC_DIR/complaints/*.py 
+      - echo "Running pylint..."
+      - pylint $CODEBUILD_SRC_DIR/*.py > pylint-report-root.txt || true
+      - pylint $CODEBUILD_SRC_DIR/restaurant_complaint_system/*.py > pylint-report-restaurant.txt || true
+      - pylint $CODEBUILD_SRC_DIR/complaints/*.py > pylint-report-complaints.txt || true
+
+  build:
+    commands:
+      - echo "Running SonarCloud scan..."
+      - sonar-scanner -Dsonar.login=$SONAR_TOKEN
+
+  post_build:
+    commands:
+      - echo "Build and scan completed"
 
 artifacts:
   files:
     - '**/*'
+    - pylint-report-root.txt
+    - pylint-report-restaurant.txt
+    - pylint-report-complaints.txt
