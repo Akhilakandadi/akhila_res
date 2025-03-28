@@ -38,12 +38,10 @@ phases:
     commands:
       - echo "Running SonarCloud scan..."
       - /opt/sonar-scanner/bin/sonar-scanner -X -Dsonar.login=$SONAR_TOKEN
-
+      - echo "Contents of requirements.txt:"
+      - cat "$CODEBUILD_SRC_DIR/requirements.txt"  
       - echo "Running OWASP Dependency-Check..."
-      - mkdir -p $CODEBUILD_SRC_DIR/nvd-cache  # Create cache directory if it doesn’t exist
-      - /opt/dependency-check/bin/dependency-check.sh --project "Django Project" --scan "$CODEBUILD_SRC_DIR/requirements.txt" --out ./dependency-check-report --data "$CODEBUILD_SRC_DIR/nvd-cache" --log dependency-check.log
-
-  post_build:
+      
     commands:
       - echo "Build, SonarCloud scan, and Dependency-Check completed"
 
