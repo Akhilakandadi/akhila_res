@@ -7,7 +7,7 @@ phases:
     commands:
       - echo "Installing dependencies..."
       - pip install --upgrade pip
-      - pip install -r requirements.txt || true  # Allow this to fail if requirements.txt is missing
+      - pip install -r requirements.txt || true
       - echo "Verifying Java version..."
       - java -version
       - echo "Downloading SonarScanner 5.1.0..."
@@ -36,9 +36,15 @@ phases:
       - echo "Running SonarCloud scan..."
       - /opt/sonar-scanner/bin/sonar-scanner -X -Dsonar.login=$SONAR_TOKEN
       - echo "Running OWASP Dependency-Check..."
-      - echo "Working directory: $(pwd)"
-      - ls -la
-      - if [ -f requirements.txt ]; then echo "requirements.txt exists, running Dependency-Check..."; cat requirements.txt; mkdir -p nvd-cache; /opt/dependency-check/bin/dependency-check.sh --project "Django Project" --scan requirements.txt --out ./dependency-check-report --log dependency-check.log; else echo "requirements.txt not found, skipping Dependency-Check..."; fi
+      - |
+        if [ -f requirements.txt ]; then
+          echo "requirements.txt exists, running Dependency-Check..."
+          cat requirements.txt
+          mkdir -p nvd-cache
+          /opt/dependency-check/bin/dependency-check.sh --project "Django Project" --scan requirements.txt --out ./dependency-check-report --log dependency-check.log
+        else
+          echo "requirements.txt not found, skipping Dependency-Check..."
+        fi
 
   post_build:
     commands:
