@@ -19,8 +19,8 @@ phases:
 
       - echo "Downloading OWASP Dependency-Check..."
       - wget https://github.com/dependency-check/DependencyCheck/releases/download/v12.1.0/dependency-check-12.1.0-release.zip
-      - unzip dependency-check-7.0.0-release.zip
-      - mv dependency-check-7.0.0 /opt/dependency-check
+      - unzip dependency-check-12.1.0-release.zip
+      - mv dependency-check-12.1.0 /opt/dependency-check
       - export PATH=$PATH:/opt/dependency-check/bin
 
   pre_build:
