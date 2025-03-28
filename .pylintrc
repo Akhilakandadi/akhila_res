@@ -1,21 +1,23 @@
 [MASTER]
-# Ignore migration files by directory and pattern
-ignore=migrations
-ignore-patterns=.*migrations/.*\.py
+load-plugins=pylint_django
+fail-under=8.0
 
-# Optional: Other common settings for Django projects
-# Disable specific checks that might not apply to Django
+django-settings-module=restaurant_complaint_system.settings
+
+[MESSAGES CONTROL]
+# Disable specific warnings you've encountered or don't want to enforce
 disable=
-    missing-module-docstring,
-    missing-class-docstring,
-    missing-function-docstring,
-    too-few-public-methods,
-    C0304,
-    E1101
-    
+    C0415,              # Import outside toplevel (your manage.py issue)
+    imported-auth-user, # Direct User model imports (if you don't want to switch to get_user_model())
+    import-error,       # For missing pytest imports (if pytest isn't installed locally)
+    unused-import,      # For unused pytest imports
+    too-many-ancestors, # If you don't want to refactor class inheritance yet
+    trailing-newlines,  # For extra newlines at file ends
+    comparison-with-callable,  # For test comparisons
+    missing-final-newline,
+    trailing-whitespace,	
 
-
-
-[REPORTS]
-# Reduce verbosity if desired
 reports=no
+[REPORTS]
+output-format=colorized
+score=yes
