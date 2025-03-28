@@ -42,7 +42,7 @@ phases:
       - cat "$CODEBUILD_SRC_DIR/requirements.txt"  
       - echo "Running OWASP Dependency-Check..."
       - echo "Running OWASP Dependency-Check..."
-      - dependency-check.sh --project "Django Project" --scan "$CODEBUILD_SRC_DIR/" --out ./dependency-check-report --data "$CODEBUILD_SRC_DIR/nvd-cache" --log dependency-check.log
+      - /opt/dependency-check/bin/dependency-check.sh --project "Django Project" --scan "$CODEBUILD_SRC_DIR/" --out ./dependency-check-report --data "$CODEBUILD_SRC_DIR/nvd-cache" --log dependency-check.log
 
       
     commands:
