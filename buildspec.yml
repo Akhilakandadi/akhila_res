@@ -18,7 +18,7 @@ phases:
       - export PATH=$PATH:$PWD/sonar-scanner-5.0.1.3006-linux/bin
 
       - echo "Downloading OWASP Dependency-Check..."
-      - wget https://github.com/jeremydmiller/dependency-check/releases/download/v7.0.0/dependency-check-7.0.0-release.zip
+      - wget https://github.com/dependency-check/DependencyCheck/releases/download/v12.1.0/dependency-check-12.1.0-release.zip
       - unzip dependency-check-7.0.0-release.zip
       - mv dependency-check-7.0.0 /opt/dependency-check
       - export PATH=$PATH:/opt/dependency-check/bin
