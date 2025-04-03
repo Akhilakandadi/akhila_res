@@ -15,6 +15,8 @@ phases:
       - python --version
       - echo "Setting up Django environment..."
       - export DJANGO_SETTINGS_MODULE=restaurent.settings
+      - echo "Listing files in source directory..."
+      - ls -la $CODEBUILD_SRC_DIR  # Added to debug file presence
       - echo "Running pytest for test stage..."
       - pytest --maxfail=1 --disable-warnings > pytest-report.txt || echo "Pytest failed"
       - test -s pytest-report.txt || echo "Warning: Pytest report is empty"
