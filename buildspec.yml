@@ -1,39 +1,15 @@
 version: 0.2
-
 phases:
   install:
     runtime-versions:
       python: 3.11
     commands:
-      - echo "Installing dependencies..."
-      - pip install --upgrade pip
-      - pip install -r $CODEBUILD_SRC_DIR/requirements.txt  # Explicit root path
-
-      - echo "Verifying Java version..."
-      - java -version  
-
-
-
-  pre_build:
+      - echo "Installing test dependencies..."
+      - pip install -r $CODEBUILD_SRC_DIR/requirements.txt  # Includes pytest
+  build:
     commands:
-      - echo "Verifying Python version..."
-      - python --version
-      - echo "Running pylint..."
-      - pylint $CODEBUILD_SRC_DIR/*.py > pylint-report-root.txt || echo "Pylint failed on root"
-      - pylint $CODEBUILD_SRC_DIR/restaurant_complaint_system/*.py > pylint-report-restaurant.txt || echo "Pylint failed on restaurant"
-      - pylint $CODEBUILD_SRC_DIR/complaints/*.py > pylint-report-complaints.txt || echo "Pylint failed on complaints"
-      - cat pylint-report-root.txt pylint-report-restaurant.txt pylint-report-complaints.txt > pylint-report.txt
-      - echo "pytest running"   
-      - pytest --maxfail=1 --disable-warnings > pytest-report.txt || echo "Pytest failed"
-
-
+      - echo "Running pytest..."
+      - pytest $CODEBUILD_SRC_DIR --verbose --junitxml=pytest-report.xml
 artifacts:
   files:
-    - pylint-report.txt
-    - dependency-check-report/*
-    - pytest-report.txt
-
-cache:
-  paths:
-    - '$CODEBUILD_SRC_DIR/nvd-cache/**/*'  # Cache the NVD data directory
-    
+    - pytest-report.xml
