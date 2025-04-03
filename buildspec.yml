@@ -24,7 +24,7 @@ phases:
       - pylint $CODEBUILD_SRC_DIR/complaints/*.py > pylint-report-complaints.txt || echo "Pylint failed on complaints"
       - cat pylint-report-root.txt pylint-report-restaurant.txt pylint-report-complaints.txt > pylint-report.txt
       - echo "pytest running"   
-      - pytest --mac=xfail=1 --disable-warnings > pytest-report.txt || echo "pytest failed"
+      - pytest --maxfail=1 --disable-warnings > pytest-report.txt || echo "Pytest failed"
 
 
 artifacts:
