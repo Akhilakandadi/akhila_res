@@ -15,7 +15,7 @@ phases:
       - echo "Verifying Python version..."
       - python --version
       - echo "Setting up Django environment..."
-      - export DJANGO_SETTINGS_MODULE = restaurant_complaint_system.settings
+      - export DJANGO_SETTINGS_MODULE=restaurant_complaint_system.settings
       - echo "Listing files in source directory..."
       - ls -la $CODEBUILD_SRC_DIR  # Added to debug file presence
       - echo "Running pytest for test stage..."
