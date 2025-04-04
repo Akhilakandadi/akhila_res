@@ -20,8 +20,8 @@ phases:
       - ls -la $CODEBUILD_SRC_DIR  # Added to debug file presence
       - echo "Running pytest for test stage..."
       - pytest --maxfail=1 --disable-warnings > pytest-report.txt || echo "Pytest failed"
-      - test -s pytest-report.txt 
-      - echo "Warning: Pytest report is empty"
+      - test -s pytest-report.txt
+      - echo "Warning Pytest report is empty"
 
   build:
     commands:
