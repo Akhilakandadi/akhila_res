@@ -3,7 +3,7 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      python: 3.11
+      python: 3.10
     commands:
       - echo "Installing dependencies..."
       - pip install --upgrade pip
@@ -28,33 +28,38 @@ phases:
     commands:
       - echo "Verifying Python version..."
       - python --version
+      
+      # Set Django settings module (adjust to your project)
+      - echo "Setting up Django environment..."
+      - export DJANGO_SETTINGS_MODULE=restaurent.settings  
+      
       - echo "Running pylint..."
       - pylint $CODEBUILD_SRC_DIR/*.py > pylint-report-root.txt || echo "Pylint failed on root"
-      - pylint $CODEBUILD_SRC_DIR/restaurant_complaint_system/*.py > pylint-report-restaurant.txt || echo "Pylint failed on restaurant"
-      - pylint $CODEBUILD_SRC_DIR/complaints/*.py > pylint-report-complaints.txt || echo "Pylint failed on complaints"
-      - cat pylint-report-root.txt pylint-report-restaurant.txt pylint-report-complaints.txt > pylint-report.txt
+      - pylint $CODEBUILD_SRC_DIR/restaurent/*.py > pylint-report-restaurant.txt || echo "Pylint failed on restaurant"
+      - pylint $CODEBUILD_SRC_DIR/staff/*.py > pylint-staff.txt || echo "Pylint failed on complaints"
+      - cat pylint-report-root.txt pylint-report-restaurant.txt pylint-staff.txt > pylint-report.txt
       
-
+      - echo "Running pytest..."
+      - pytest --maxfail=1 --disable-warnings > pytest-report.txt || echo "Pytest failed"
+      
+      
   build:
     commands:
       - echo "Running SonarCloud scan..."
       - /opt/sonar-scanner/bin/sonar-scanner -X -Dsonar.login=$SONAR_TOKEN
       - echo "Contents of requirements.txt:"
-      - cat "$CODEBUILD_SRC_DIR/requirements.txt"  
-      - echo "Running OWASP Dependency-Check..."
+      - cat "$CODEBUILD_SRC_DIR/requirements.txt"
       - echo "Running OWASP Dependency-Check..."
       - /opt/dependency-check/bin/dependency-check.sh --project "Django Project" --scan "$CODEBUILD_SRC_DIR/" --out ./dependency-check-report --data "$CODEBUILD_SRC_DIR/nvd-cache" --log dependency-check.log
 
-      
-    commands:
       - echo "Build, SonarCloud scan, and Dependency-Check completed"
 
 artifacts:
   files:
     - pylint-report.txt
+    - pytest-report.txt
     - dependency-check-report/*
 
 cache:
   paths:
-    - '$CODEBUILD_SRC_DIR/nvd-cache/**/*'  # Cache the NVD data directory
-    
+    - '$CODEBUILD_SRC_DIR/nvd-cache//*'  # Cache the NVD data directory
